@@ -1,12 +1,21 @@
 const express = require("express");
 const app = express();
 
-app.set("view engine", "ejs")
+const articleRoutes = require("./routes/articles");
 
+app.set("view engine", "ejs");
 
-app.get("/", (req,res) =>{
-    res.render("index")
+app.use("/articles", articleRoutes);
+
+app.get("/", (req, res) => {
+  const articles = [
+    {
+      title: "Article1",
+      date: new Date(),
+      desc: "dummy desc here"
+    }
+  ];
+  res.render("index", { articles: articles });
 });
-
 
 app.listen(5000);
