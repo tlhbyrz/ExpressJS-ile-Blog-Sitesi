@@ -19,10 +19,14 @@ mongoose
     console.log("mongodb error:", err.message);
   });
 
+//bu req in içindeki verilerre erişmemizi sağlıyor
 app.use(express.urlencoded({ extended: false }));
+
+// bu kütüphane de formdan gelen requestleri put delete vs dönüştürüyor.
 app.use(methodOverride("_method"));
 const articleRoutes = require("./routes/articles");
 
+//layout için kullanıyoruz
 app.set("view engine", "ejs");
 
 app.use("/articles", articleRoutes);

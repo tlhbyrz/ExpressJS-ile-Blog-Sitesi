@@ -32,11 +32,14 @@ const articleSchema = mongoose.Schema({
   }
 });
 
+// pre fonksiyonu veritabanına herhangi bir işlem yapmadan önce yapılacak olan validasyon işlemlerini yapıyoruz
 articleSchema.pre("validate", function(next) {
+  //slug urlde id yerine her bir blogun başlığının görünmesini sağlıyor.
   if (this.title) {
     this.slug = slugify(this.title, { lower: true, strict: true });
   }
 
+  // altta yaptığımız dompurify ise injection saldırılarına karşı koruma sağlıyor. Bazı özel karakterleri string formatına dönüştürüyor.
   if (this.markdown) {
     this.senitizedHTML = dompurify.sanitize(marked(this.markdown));
   }
